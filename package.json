@@ -1,0 +1,29 @@
+{
+  "name": "jeanette-rasepae-279-express-forms-and-templates-",
+  "version": "1.0.0",
+  "description": "Express, forms and templates (279)\r For raw project instructions see: https://raw.githubusercontent.com/Umuzi-org/tech-department/master/content/projects/nodejs/express-forms/_index.md",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine",
+    "devStart": "nodemon express_forms.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Umuzi-org/Jeanette-Rasepae-279-express-forms-and-templates-.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Umuzi-org/Jeanette-Rasepae-279-express-forms-and-templates-/issues"
+  },
+  "homepage": "https://github.com/Umuzi-org/Jeanette-Rasepae-279-express-forms-and-templates-#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jasmine": "^3.6.1",
+    "mongoose": "^5.10.5"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.4"
+  }
+}
