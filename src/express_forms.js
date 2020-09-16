@@ -1,29 +1,30 @@
-const express = require("../node_modules/express");
+const express = require('../node_modules/express');
+const bodyParser = require('../node_modules/body-parser');
 const app = express();
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
+const port = 3000;
+const path = require('path');
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.listen(3000, function () {
-  console.log("server listening on 3000");
-});
-
-app.get("/", (request, response) => {
-  response.sendFile(__dirname + "/index.html");
-});
-
-app.post("/visitor", (request, response) => {
-  console.log(request.body);
-});
-
-var mongoDB = 'mongodb://127.0.0.1/umuzi';
-//mongoose.connect(mongoDB, { useNewUrlParser: true });
+var mongoose = require('../node_modules/mongoose');
+var mongoDB = 'mongodb://127.0.0.1/VisitorsDB';
+mongoose.connect(mongoDB, { useNewUrlParser: true });
 var db = mongoose.connection;  
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-mongoose.connect(mongoDB, function(err, db) {
-  if (err) throw err;
-  console.log("Database created!");
-  
+app.get('/visitor', (request, response) => {
+  response.sendFile(path.join(__dirname + '/index.html'));
 });
+
+app.post('/visitor', (req, res) => {
+  console.log(req.body)
+  addNewVisitor(req.body)
+res.send(req.body);
+});
+
+function addNewVisitor(req){  
+db.collection("New_Visitor").insertOne(req);
+}
+
+app.listen(port, () => console.log(`server running on ://localhost:${port}`));
