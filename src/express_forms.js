@@ -43,4 +43,4 @@ db.collection("New_Visitor").insertOne(req);
 
 app.listen(port, () => console.log(`server running on ://localhost:${port}`));
 
-module.exports = {addNewVisitor};
+module.exports = {addNewVisitor, app};
