@@ -30,18 +30,3 @@ describe('index.html', function(){
         expect(input).toBe(input);
     })
 })
-// describe('routes connection to server', () =>{
-//     let server;
-
-    // beforeEach(() => {
-    //     app = require('../src/express_forms')
-    // });
-
-    // afterEach((done) =>{
-    //     server.close(done);
-    // })
-//     it('', function(done) {
-//         const app = supertest(server);
-//         app.get('./').expect(404).end(finishTestcase(done));
-// });
-// })
