@@ -4,25 +4,30 @@ const app = express();
 const port = 3000;
 const path = require('path');
 
+var mongoose = require('../node_modules/mongoose');
+var mongoDB = 'mongodb://127.0.0.1/VisitorsDB';
+mongoose.connect(mongoDB, { useNewUrlParser: true,  useUnifiedTopology: true });
+var db = mongoose.connection;  
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+function addNewVisitor(name){  
+  db.collection("Visitor").insertOne(name);
+  console.log('Data is saved');
+}
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var mongoose = require('../node_modules/mongoose');
-var mongoDB = 'mongodb://127.0.0.1/VisitorsDB';
-mongoose.connect(mongoDB, { useNewUrlParser: true });
-var db = mongoose.connection;  
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-app.get('/', (request, response) => {
+app.get('/new_visit', (request, response) => {
   response.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.post('/', (req, res) => {
   addNewVisitor(req.body)
-  db.collection("New_Visitor").find().sort({_id: -1}).limit(1).toArray( function(err, result) {
+  db.collection("Visitor").find().sort({_id: -1}).limit(1).toArray( function(err, result) {
     if (err) throw err;
     console.log(result[0].VisitorName);
   console.log(req.body)
@@ -37,9 +42,7 @@ app.post('/', (req, res) => {
   })
 });
 })
-function addNewVisitor(req){  
-db.collection("New_Visitor").insertOne(req);
-}
+
 
 app.listen(port, () => console.log(`server running on ://localhost:${port}`));
 
